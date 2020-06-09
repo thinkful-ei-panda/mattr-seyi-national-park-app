@@ -1,7 +1,7 @@
 'use strict';
 
 // put your own value below!
-const apiKey = 'https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=IrnLj9BsznHDe8SuSOHyUzcYU6g3gV8cGds723Pf'; 
+const apiKey = 'IrnLj9BsznHDe8SuSOHyUzcYU6g3gV8cGds723Pf'; 
 const searchURL = 'https://developer.nps.gov/api/v1/alerts?parkCode=acad,dena';
 
 

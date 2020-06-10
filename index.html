@@ -12,20 +12,21 @@
         <div class="container">
             <h1>National Park Finder</h1>
     
-            <form id="js-form">
+            <form class="js-form">
                 <label for="search-term">Search term</label>
-                <input type="text" name="search-term" id="js-search-term" required>
+                <input type="text" name="search-term" class="js-search-term" required>
     
                 <label for="max-results">Maximum results to return</label>
-                <input type="number" name="max-results" id="js-max-results" value="10">
+                <input type="number" name="max-results" class="js-max-results" value="10">
     
-                <input type="submit" value="Go!">
+                <button type="submit">Go!</button> 
             </form>
     
             <p id="js-error-message" class="error-message"></p>
             <section id="results" class="hidden">
               <h2>Search results</h2>
-              <ul id="results-list">
+              <ul class="results-list">
+                  
               </ul>
             </section>
         </div>

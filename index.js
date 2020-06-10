@@ -2,7 +2,7 @@
 
 // put your own value below!
 const apiKey = 'IrnLj9BsznHDe8SuSOHyUzcYU6g3gV8cGds723Pf'; 
-const searchURL = 'https://developer.nps.gov/api/v1/alerts?parkCode=acad,dena';
+const searchURL = 'https://developer.nps.gov/api/v1/parks';
 
 
 function formatQueryParams(params) {
@@ -12,15 +12,9 @@ function formatQueryParams(params) {
 }
 
 function displayResults(responseJson) {
-  // if there are previous results, remove them
   console.log(responseJson);
   $('#results-list').empty();
-  // iterate through the items array
   for (let i = 0; i < responseJson.items.length; i++){
-    // for each video object in the items 
-    //array, add a list item to the results 
-    //list with the video title, description,
-    //and thumbnail
     $('#results-list').append(
       `<li><h3>${responseJson.items[i].snippet.title}</h3>
       <p>${responseJson.items[i].snippet.description}</p>

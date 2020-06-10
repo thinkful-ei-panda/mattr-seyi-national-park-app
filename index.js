@@ -1,9 +1,7 @@
 'use strict';
 
-// put your own value below!
 const apiKey = 'IrnLj9BsznHDe8SuSOHyUzcYU6g3gV8cGds723Pf'; 
 const searchURL = 'https://developer.nps.gov/api/v1/parks';
-
 
 function fetchURI(park, limit = 10) {
   fetch(`https://developer.nps.gov/api/v1/alerts?parkCode=${park}&limit=${limit}&fields=addresses&api_key=${apiKey}`)
@@ -11,46 +9,6 @@ function fetchURI(park, limit = 10) {
     .then((json) => display(generate(json.data)));
 }
 
-<<<<<<< HEAD
-function displayResults(responseJson) {
-  console.log(responseJson);
-  $('#results-list').empty();
-  for (let i = 0; i < responseJson.items.length; i++){
-    $('#results-list').append(
-      `<li><h3>${responseJson.items[i].snippet.title}</h3>
-      <p>${responseJson.items[i].snippet.description}</p>
-      <img src='${responseJson.items[i].snippet.thumbnails.default.url}'>
-      </li>`
-    )};
-  //display the results section  
-  $('#results').removeClass('hidden');
-};
-
-function getYouTubeVideos(query, maxResults=10) {
-  const params = {
-    key: apiKey,
-    q: query,
-    part: 'snippet',
-    maxResults,
-    type: 'video'
-  };
-  const queryString = formatQueryParams(params)
-  const url = searchURL + '?' + queryString;
-
-  console.log(url);
-
-  fetch(url)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error(response.statusText);
-    })
-    .then(responseJson => displayResults(responseJson))
-    .catch(err => {
-      $('#js-error-message').text(`Something went wrong: ${err.message}`);
-    });
-=======
 //generate the html doc from list of sites
 function generate(list) {
   let result = "";
@@ -81,15 +39,9 @@ function getState() {
   return ans.replace(/\s/g, "");
 }
 
-
-
 function display(string) {
   $('result-list').html(string);
->>>>>>> 0a1799ded3f236cfc8ba41a44b753d283a517326
 }
-
-
-
 
 function handleInput() {
   $(".js-form").on("submit", event => {
@@ -100,65 +52,3 @@ function handleInput() {
 }
 
 $(handleInput);
-// function formatQueryParams(params) {
-//   const queryItems = Object.keys(params)
-//     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-//   return queryItems.join('&');
-// }
-
-// function displayResults(responseJson) {
-//   // if there are previous results, remove them
-//   console.log(responseJson);
-//   $('#results-list').empty();
-//   // iterate through the items array
-//   for (let i = 0; i < responseJson.items.length; i++){
-//     // for each video object in the items 
-//     //array, add a list item to the results 
-//     //list with the video title, description,
-//     //and thumbnail
-//     $('#results-list').append(
-//       `<li><h3>${responseJson.items[i].snippet.title}</h3>
-//       <p>${responseJson.items[i].snippet.description}</p>
-//       <img src='${responseJson.items[i].snippet.thumbnails.default.url}'>
-//       </li>`
-//     )};
-//   //display the results section  
-//   $('#results').removeClass('hidden');
-// };
-
-// function getYouTubeVideos(query, maxResults=10) {
-//   const params = {
-//     key: apiKey,
-//     q: query,
-//     part: 'snippet',
-//     maxResults,
-//     type: 'video'
-//   };
-//   const queryString = formatQueryParams(params)
-//   const url = searchURL + '?' + queryString;
-
-//   console.log(url);
-
-//   fetch(url)
-//     .then(response => {
-//       if (response.ok) {
-//         return response.json();
-//       }
-//       throw new Error(response.statusText);
-//     })
-//     .then(responseJson => displayResults(responseJson))
-//     .catch(err => {
-//       $('#js-error-message').text(`Something went wrong: ${err.message}`);
-//     });
-// }
-
-// function watchForm() {
-//   $('form').submit(event => {
-//     event.preventDefault();
-//     const searchTerm = $('#js-search-term').val();
-//     const maxResults = $('#js-max-results').val();
-//     getYouTubeVideos(searchTerm, maxResults);
-//   });
-// }
-
-//$(watchForm);

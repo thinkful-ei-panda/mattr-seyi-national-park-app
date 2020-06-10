@@ -6,7 +6,7 @@ const searchURL = 'https://developer.nps.gov/api/v1/alerts?parkCode=acad,dena';
 
 
 function fetchURI(park, limit = 10) {
-  fetch(`https://developer.nps.gov/api/v1/alerts?parkCode=${park}&limit=${limit - 1}&fields=addresses&api_key=${apiKey}`)
+  fetch(`https://developer.nps.gov/api/v1/alerts?parkCode=${park}&limit=${limit}&fields=addresses&api_key=${apiKey}`)
     .then(response => response.json())
     .then((json) => display(generate(json.data)));
 }
@@ -20,12 +20,12 @@ function generate(list) {
     result +=
       `<li>
           <ul>
-            <li class="name">${element.fullName}</li>
+            <li class="name">${element.name}</li>
             <li> ${element.description}</li>
-            <li><a href = "${element.directionsUrl}"> ${element.addresses[1].line1} ${element.addresses[1].city} ${element.addresses[1].stateCode} ${element.addresses[1].postalCode}</a></li>
             <li><a href = "${element.url}">Check out their website</a></li>
           </ul>
       </li>`;
+    $("#results").removeClass("hidden");
   });
   return result;
 }
@@ -53,7 +53,7 @@ function display(string) {
 function handleInput() {
   $(".js-form").on("submit", event => {
     event.preventDefault();
-    fetch(getState(), getMax());
+    fetchURI(getState(), getMax());
     $(".js-search-term").val("");
   });
 }

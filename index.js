@@ -1,31 +1,50 @@
-'use strict';
+const apiKey = `IrnLj9BsznHDe8SuSOHyUzcYU6g3gV8cGds723Pf`; 
 
-const apiKey = 'IrnLj9BsznHDe8SuSOHyUzcYU6g3gV8cGds723Pf'; 
-const searchURL = 'https://developer.nps.gov/api/v1/parks';
+function formatQueryParams(park, limit) {
+  // const queryItems = Object.keys(params)
+  //   .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
+  // return queryItems.join('&');
 
-function fetchURI(park, limit = 10) {
-  fetch(`https://developer.nps.gov/api/v1/alerts?parkCode=${park}&limit=${limit}&fields=addresses&api_key=${apiKey}`)
-    .then(response => response.json())
-    .then((json) => display(generate(json.data)));
+  return `https://developer.nps.gov/api/v1/parks?statecode=${park}&limit=${limit}&api_key=${apiKey}`;
 }
+
+const fetchURI = function (park, limit) {
+  // const params = {
+  //   api_Key: apiKey,
+  //   limit: limit,
+  //   stateCode: park,
+  // };
+
+
+  // const query = formatQueryParams(params);
+  const url = formatQueryParams(park, limit);
+
+  fetch(url)
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } throw new Error(response.statusText);
+    })
+    .then(responseJson => generate(responseJson))
+    .catch(err => {
+      alert(err.message);
+    });
+    
+};
+
 
 //generate the html doc from list of sites
 function generate(list) {
-  let result = "";
+  $('.results-list').empty();
   
 //each element has a fullName, description, and url
-  list.forEach(element => {
-    result +=
-      `<li>
-          <ul>
-            <li class="name">${element.name}</li>
-            <li> ${element.description}</li>
-            <li><a href = "${element.url}">Check out their website</a></li>
-          </ul>
-      </li>`;
-    $("#results").removeClass("hidden");
+  list.data.forEach(element => {
+    $('.results-list').append(
+       ` <li class="name">${element.fullName}
+        <p> ${element.description}</p>
+        <a href = "${element.url}">Check out their website</a>
+        </li>`);
   });
-  return result;
 }
 
 function getMax() {
@@ -34,19 +53,17 @@ function getMax() {
 }
 
 //get the state that the user puts in
-function getState() {
+function getPark() {
   let ans = $(".js-search-term").val();
-  return ans.replace(/\s/g, "");
-}
-
-function display(string) {
-  $('result-list').html(string);
+  return ans;
 }
 
 function handleInput() {
   $(".js-form").on("submit", event => {
     event.preventDefault();
-    fetchURI(getState(), getMax());
+    // const state = $('.js-search-term').val();
+    // const max = $('.js-max-results').val();
+    fetchURI(getPark(), getMax());
     $(".js-search-term").val("");
   });
 }
